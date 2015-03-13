@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'pop_uploader'
+require 'pop_uploader/commands'
