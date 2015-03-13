@@ -21,23 +21,22 @@
 <a href="<%= same_book_url %>">All images from this book</a>
 
 <% if evidence? -%>
-<b>Provenance Evidence</b>: <%= evidence_summary %>
+<b>Provenance evidence</b>: <%= evidence_summary %>
 <b>Location in book</b>: <%= evidence_location_in_book %>
 <% end -%>
-
 
 <% if identified? -%>
 <% identifications.each do |id| -%>
 <b>Identified</b>: <%= id %>
 <% end -%>
 <% if present?(id_date) -%>
-<b>Identified Date</b>: <%= id_date %>
+<b>Identified date(s)</b>: <%= id_date %>
 <% end -%>
 <% if present?(id_place) -%>
-<b>Identified place</b>: <%= id_place %>
-<% end -%>
-<% end -%>
+<b>Identified place(s)</b>: <%= id_place %>
+<% end -%><%# Add a blank line only if identified  -%>
 
+<% end -%>
 <% if present?(evidence_transcription) -%>
 <b>Transcription</b>: <%= evidence_transcription %>
 <% end -%>

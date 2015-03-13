@@ -61,9 +61,13 @@ module PopUploader
     end
 
     def identified?
-      (
-       PopUploader.header_config.identified_name_headers + [ :id_place, :id_date ]
-      ).any? { |attr| v = vals attr; v && v.size > 0 }
+      @is_identified ||= identification_headers.any? { |attr|
+        v = vals attr; v && v.size > 0
+      }
+    end
+
+    def identification_headers
+      PopUploader.header_config.identified_name_headers + [ :id_place, :id_date ]
     end
 
     def id_list role, attrs
@@ -74,12 +78,18 @@ module PopUploader
       }
     end
 
+    def identified_names?
+      PopUploader.header_config.identified_name_headers.any? { |attr|
+        v = vals attr; v && v.size > 0
+      }
+    end
+
     def associated_places
-      @associated_places ||= tag('evidence_place_associated').join('; ')
+      @associated_places ||= vals(:evidence_place_associated).join('; ')
     end
 
     def associated_dates
-      @associated_dates ||= tag('evidence_date_associated').join('; ')
+      @associated_dates ||= vals(:evidence_date_associated).join('; ')
     end
 
     def associated_names
@@ -100,7 +110,11 @@ module PopUploader
     end
 
     def photo_title
-      "#{format} from #{copy_current_repository} #{copy_call_number}"
+      if identified_names?
+        "#{format}: #{identifications.join '; '}"
+      else
+        "#{format} from #{copy_current_repository} #{copy_call_number}"
+      end
     end
 
     def authors
