@@ -29,9 +29,12 @@ module PopUploader
 
     # https://www.flickr.com/photos/58558794@N07/tags/901735
     def same_book_url
-      "#{pop_user_url}/tags/#{copy_call_number.normalize}"
+      tag_url copy_call_number
     end
 
+    def tag_url tag_string
+      "#{pop_user_url}/tags/#{tag_string.normalize}"
+    end
     def identifications
       [ donors, recipients, sellers, selling_agents, buyers, owners ].flatten
     end
@@ -70,11 +73,17 @@ module PopUploader
       PopUploader.header_config.identified_name_headers + [ :id_place, :id_date ]
     end
 
+    class Ident
+      attr_accessor :name, :role
+      def initialize name, role; @name = name; @role = role; end
+      def to_s; "#{name}, #{role}"; end
+    end
+
     def id_list role, attrs
       attrs.flat_map { |attr|
         vals attr
-      }.map { |val|
-        "#{val}, #{role}"
+      }.map { |name|
+        Ident.new name, role
       }
     end
 
@@ -111,7 +120,7 @@ module PopUploader
 
     def photo_title
       if identified_names?
-        "#{format}: #{identifications.join '; '}"
+        "#{format}: #{identifications.map(&:name).join '; '}"
       else
         "#{format} from #{copy_current_repository} #{copy_call_number}"
       end
@@ -126,7 +135,13 @@ module PopUploader
     end
 
     def tags
-      PopUploader.header_config.tag_headers.flat_map { |attr| tag attr }.uniq
+      tag_values.map { |v| "\"#{v}\"" }
+    end
+
+    def tag_values
+      PopUploader.header_config.tag_headers.flat_map { |attr|
+        (send(attr) || '').split('|')
+      }.uniq
     end
 
     def tag attr

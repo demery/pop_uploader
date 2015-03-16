@@ -2,11 +2,12 @@
 <b><%= evidence_status %></b>
 <% end -%>
 
+<b>COPY</b>
 <b>Repository</b>: <%= copy_current_repository %>
 <% if present?(copy_current_collection) -%>
+<b>Call number</b>: <a href="<%= url_to_catalog %>"><%= copy_call_number %></a>
 <b>Collection</b>: <%= copy_current_collection %>
 <% end -%>
-<a href="<%= url_to_catalog %>"><%= copy_call_number %></a>
 <b>Copy title</b>: <%= copy_title %>
 <% if present?(authors) -%>
 <b>Author(s)</b>: <%= authors %>
@@ -17,26 +18,12 @@
 <% if present?(copy_printer_publisher) -%>
 <b>Printer/Publisher</b>: <%= copy_printer_publisher %>
 <% end -%>
-
 <a href="<%= same_book_url %>">All images from this book</a>
-
 <% if evidence? -%>
+
+<b>EVIDENCE</b>
 <b>Provenance evidence</b>: <%= evidence_summary %>
 <b>Location in book</b>: <%= evidence_location_in_book %>
-<% end -%>
-
-<% if identified? -%>
-<% identifications.each do |id| -%>
-<b>Identified</b>: <%= id %>
-<% end -%>
-<% if present?(id_date) -%>
-<b>Identified date(s)</b>: <%= id_date %>
-<% end -%>
-<% if present?(id_place) -%>
-<b>Identified place(s)</b>: <%= id_place %>
-<% end -%><%# Add a blank line only if identified  -%>
-
-<% end -%>
 <% if present?(evidence_transcription) -%>
 <b>Transcription</b>: <%= evidence_transcription %>
 <% end -%>
@@ -48,4 +35,23 @@
 <% end -%>
 <% if present?(associated_places) -%>
 <b>Associated place(s)</b>: <%= associated_places %>
+<% end -%>
+<% end -%>
+<% if identified? -%>
+
+<b>IDENTIFICATION</b>
+<% identifications.each do |id| -%>
+<b>Identified</b>: <%= id %>
+<% end -%>
+<% if present?(id_date) -%>
+<b>Identified date(s)</b>: <%= id_date %>
+<% end -%>
+<% if present?(id_place) -%>
+<b>Identified place(s)</b>: <%= id_place %>
+<% end -%><%# Add a blank line only if identified  -%>
+<% end -%>
+
+<b>FIND IN POP</b>
+<% tag_values.each do |tag| -%>
+  <a href="<%= tag_url tag %>"><%= tag %></a>
 <% end -%>
