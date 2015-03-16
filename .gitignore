@@ -9,3 +9,5 @@
 /tmp/
 ~*
 null.txt
+.ruby-version
+.travis.yml
