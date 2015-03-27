@@ -4,23 +4,11 @@ require 'pop_uploader/sheet'
 
 module PopUploader
   describe ImageRow do
-    let (:fixpath) { RSpec.configuration.fixtures_path }
-    let (:tmpdir) { ENV['TMPDIR'] || '/tmp' }
 
-    let (:valid_sheet_path) { File.join fixpath, 'A_NCUploadSheet_valid.xlsx' }
-    let (:valid_sheet) { Sheet.new valid_sheet_path }
     let (:image_row) { ImageRow.new valid_sheet, 2 }
-    let (:sheet_with_optional_header) { Sheet.new valid_sheet_path, optional_headers: { new_header: 'new:header:text' } }
     let (:row_with_optional_header) { ImageRow.new sheet_with_optional_header, 2 }
 
-    let (:outputsheet) { File.join tmpdir, 'outsheet.xlsx' }
-
-    let (:removals) { [ outputsheet ] }
-    let (:cleanup) { removals.each { |x| File.delete(x) if File.exists?(x) } }
-
     before(:example) { PopUploader.configure! }
-
-    after(:example) { cleanup }
 
     context "creation" do
       it "creates a row" do

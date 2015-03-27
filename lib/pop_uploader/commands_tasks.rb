@@ -67,15 +67,6 @@ EOT
       end
     end
 
-    def exit_with_error msg=nil
-      if msg
-        puts "ERROR: #{msg}"
-      else
-        puts "Error running command"
-      end
-      exit 1
-    end
-
     def write_help_message
       puts HELP_MESSAGE
     end

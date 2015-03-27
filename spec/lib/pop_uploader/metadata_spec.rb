@@ -3,7 +3,7 @@ require 'spec_helper'
 describe PopUploader::Metadata do
 
   EVIDENCE_HASH = {
-    image_title: 'Folio_NC6_Se888_717hb_5',
+    file_name: 'Folio_NC6_Se888_717hb_5',
     url_to_catalog: 'http://franklin.library.upenn.edu/record.html?q=Folio_NC6_Se888_717hb&id=FRANKLIN_2637320&',
     image_type: 'Provenance',
     copy_call_number: 'Folio NC6 Se888 717hb',
@@ -19,28 +19,18 @@ describe PopUploader::Metadata do
     evidence_format: 'Inscription',
     evidence_type: '',
     evidence_transcription: 'Ce Livre a appartenu a Monsieur le Baron Rocca, General de Bataille des armees et de sa majeste et pourveneur de la ville dIpre 1674Ipre 1674',
-    evidence_individual_associated_name: 'Monsieur le Baron de Rocca',
-    evidence_organization_associated_name: 'Monsieur le Baron de Rocca',
-    evidence_family_associated_name: '',
+    evidence_associated_name: 'Monsieur le Baron de Rocca',
     evidence_date_associated: '1674',
     evidence_place_associated: 'Ipre',
-    evidence_creator_of_evidence: '',
     evidence_description: '',
-    evidence_status: 'Unidentified',
     id_date: '',
     id_place: '',
-    id_individual_owner: '',
-    id_organization_owner: '',
-    id_individual_donor: '',
-    id_organization_donor: '',
-    id_individual_recipient: '',
-    id_organization_recipient: '',
-    id_individual_seller: '',
-    id_organization_seller: '',
-    id_individual_selling_agent: '',
-    id_organization_selling_agent: '',
-    id_individual_buyer: '',
-    id_organization_buyer: '',
+    id_owner: '',
+    id_donor: '',
+    id_recipient: '',
+    id_seller: '',
+    id_selling_agent: '',
+    id_buyer: '',
     comments: ''
   }
 
@@ -99,12 +89,12 @@ describe PopUploader::Metadata do
     end
 
     it "doesn't contain duplicate values" do
-      md = PopUploader::Metadata.new evidence(id_individual_seller: 'Smith, J. X.', id_individual_buyer: 'Smith, J. X.')
+      md = PopUploader::Metadata.new evidence(id_seller: 'Smith, J. X.', id_buyer: 'Smith, J. X.')
       expect(md.tags.find_all { |s| s == '"Smith, J. X."' }.size).to be 1
     end
 
     it "handles piped tags" do
-      md = PopUploader::Metadata.new evidence(id_individual_seller: 'Smith, J. X.|Brown, M. Q.')
+      md = PopUploader::Metadata.new evidence(id_seller: 'Smith, J. X.|Brown, M. Q.')
       expect(md.tags).to include '"Smith, J. X."'
       expect(md.tags).to include '"Brown, M. Q."'
     end

@@ -6,48 +6,41 @@
 # processed.
 ---
 :header_definitions:
-  :file_name:                             image title
-  :url_to_catalog:                        url to catalog
-  :image_type:                            image type
-  :copy_call_number:                      copy:call number
-  :copy_volume_number:                    copy:volume number
-  :copy_current_repository:               copy:current repository
-  :copy_current_collection:               copy:current collection
-  :copy_author:                           copy:author
-  :copy_title:                            copy:title
-  :copy_place_of_publication:             copy:place of publication
-  :copy_date_of_publication:              copy:date of publication
-  :copy_printer_publisher:                copy:printer/publisher
-  :evidence_location_in_book:             evidence:location in book
-  :evidence_format:                       evidence:format
-  :evidence_type:                         evidence:type
-  :evidence_transcription:                evidence:transcription
-  :evidence_individual_associated_name:   evidence:individual associated name
-  :evidence_organization_associated_name: evidence:organization associated name
-  :evidence_family_associated_name:       evidence:family associated name
-  :evidence_date_associated:              evidence:associated date
-  :evidence_place_associated:             evidence:associated place
-  :evidence_creator_of_evidence:          evidence:creator
-  :evidence_description:                  evidence:description
-  :evidence_status:                       evidence:status
-  :id_date:                               id:date
-  :id_place:                              id:place
-  :id_individual_owner:                   id:individual:owner
-  :id_organization_owner:                 id:organization:owner
-  :id_individual_donor:                   id:individual:donor
-  :id_organization_donor:                 id:organization:donor
-  :id_individual_recipient:               id:individual:recipient
-  :id_organization_recipient:             id:organization:recipient
-  :id_individual_seller:                  id:individual:seller
-  :id_organization_seller:                id:organization:seller
-  :id_individual_selling_agent:           id:individual:selling agent
-  :id_organization_selling_agent:         id:organization:selling agent
-  :id_individual_buyer:                   id:individual:buyer
-  :id_organization_buyer:                 id:organization:buyer
-  :comments:                              comments
+  :file_name:                 "image file name"
+  :url_to_catalog:            "url to catalog"
+  :image_type:                "evidence: image category"
+  :copy_call_number:          "copy: call number/shelf mark"
+  :copy_volume_number:        "copy: volume number"
+  :copy_current_repository:   "copy: current repository"
+  :copy_current_collection:   "copy: current collection"
+  :copy_author:               "copy: author"
+  :copy_title:                "copy: title"
+  :copy_place_of_publication: "copy: place of publication"
+  :copy_date_of_publication:  "copy: date of publication"
+  :copy_printer_publisher:    "copy: printer/publisher"
+  :evidence_location_in_book: "evidence: location in book"
+  :evidence_format:           "evidence: format"
+  :evidence_type:             "evidence: content type"
+  :evidence_transcription:    "evidence: transcription"
+  :evidence_associated_name:  "evidence: associated name"
+  :evidence_date_associated:  "evidence: associated date"
+  :evidence_place_associated: "evidence: associated place"
+  :evidence_description:      "evidence: description"
+  :evidence_citation:         "evidence: reference citation"
+  :evidence_comments:         "evidence: comments"
+  :id_date:                   "id: date"
+  :id_place:                  "id: place"
+  :id_owner:                  "id: owner"
+  :id_donor:                  "id: donor"
+  :id_recipient:              "id: recipient"
+  :id_seller:                 "id: seller"
+  :id_selling_agent:          "id: selling agent"
+  :id_buyer:                  "id: buyer"
+  :id_bindier:                "id: binder"
+  :id_viaf_link:              "id: viaf authority link"
 
-# Required headers definitions are those keys that must appear on the
-# left in the list above; these are the headers that must be defined
+
+# Required headers definitions are those headers that must be defined
 # for the pop uploader to work.
 :required_header_definitions:
   - file_name
@@ -68,11 +61,15 @@
   - evidence_transcription
   - evidence_date_associated
   - evidence_place_associated
-  - evidence_creator_of_evidence
   - evidence_description
-  - evidence_status
   - id_date
   - id_place
+
+:required_values:
+  - copy_current_repository
+  - copy_call_number
+  - evidence_format
+  - copy_title
 
 :tag_headers:
   - image_type
@@ -83,67 +80,43 @@
   - copy_place_of_publication
   - copy_date_of_publication
   - evidence_format
-  - evidence_individual_associated_name
-  - evidence_organization_associated_name
-  - evidence_family_associated_name
+  - evidence_associated_name
   - evidence_date_associated
   - evidence_place_associated
-  - evidence_creator_of_evidence
-  - evidence_status
   - id_date
   - id_place
-  - id_individual_owner
-  - id_organization_owner
-  - id_individual_donor
-  - id_organization_donor
-  - id_individual_recipient
-  - id_organization_recipient
-  - id_individual_seller
-  - id_organization_seller
-  - id_individual_selling_agent
-  - id_organization_selling_agent
-  - id_individual_buyer
-  - id_organization_buyer
+  - id_owner
+  - id_donor
+  - id_recipient
+  - id_seller
+  - id_selling_agent
+  - id_buyer
 
 :associated_name_headers:
-  - evidence_individual_associated_name
-  - evidence_organization_associated_name
-  - evidence_family_associated_name
+  - evidence_associated_name
 
 :identified_name_headers:
-  - id_individual_owner
-  - id_organization_owner
-  - id_individual_donor
-  - id_organization_donor
-  - id_individual_recipient
-  - id_organization_recipient
-  - id_individual_seller
-  - id_organization_seller
-  - id_individual_selling_agent
-  - id_organization_selling_agent
-  - id_individual_buyer
-  - id_organization_buyer
+  - id_owner
+  - id_donor
+  - id_recipient
+  - id_seller
+  - id_selling_agent
+  - id_buyer
 
 :owner_headers:
-  - id_individual_owner
-  - id_organization_owner
+  - id_owner
 
 :donor_headers:
-  - id_individual_donor
-  - id_organization_donor
+  - id_donor
 
 :recipient_headers:
-  - id_individual_recipient
-  - id_organization_recipient
+  - id_recipient
 
 :seller_headers:
-  - id_individual_seller
-  - id_organization_seller
+  - id_seller
 
 :selling_agent_headers:
-  - id_individual_selling_agent
-  - id_organization_selling_agent
+  - id_selling_agent
 
 :buyer_headers:
-  - id_individual_buyer
-  - id_organization_buyer
+  - id_buyer

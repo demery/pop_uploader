@@ -261,6 +261,10 @@ module PopUploader
     #===========================================================================
     def validate
       validate_headers
+      if @errors and @errors.size > 0
+        (msg ||= []) << "ERROR: Headers missing from #{filename}" << @errors
+        raise HeaderException, msg.join($/)
+      end
     end
 
     def validate_headers
@@ -278,11 +282,10 @@ module PopUploader
     end
 
     def missing_headers
-      missings = @known_headers.headers.flat_map { |hdr|
-        headers_normalized.include?(hdr.normal) ? [] : hdr.raw
-      }
-      unless missings.empty?
-        raise HeaderException, "Expected headers not found in `#{filename}': #{missings.map(&:quote).join '; '}."
+      @known_headers.headers.each do |hdr|
+        unless headers_normalized.include?(hdr.normal)
+          (@errors ||= []) << "Expected header not found #{hdr.raw}"
+        end
       end
     end
 

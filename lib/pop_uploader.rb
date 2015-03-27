@@ -95,5 +95,14 @@ module PopUploader
       @@header_config
     end
 
+    def exit_with_error msg=nil
+      if msg
+        puts "ERROR: #{msg}"
+      else
+        puts "Error running command"
+      end
+      exit 1
+    end
+
   end
 end

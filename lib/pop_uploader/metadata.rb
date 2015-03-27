@@ -13,7 +13,7 @@ module PopUploader
     end
 
     def evidence?
-      image_hash[:image_type] == 'Provenance'
+      image_hash[:evidence_format] !~ /Title|Context/
     end
 
     def evidence_summary
@@ -108,9 +108,9 @@ module PopUploader
     end
 
     def format
-      case image_type
+      case evidence_format
       when /title page/i
-        image_type
+        'Title page'
       when /context/i
         'Context image'
       else

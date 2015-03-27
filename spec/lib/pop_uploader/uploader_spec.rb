@@ -2,13 +2,6 @@ require 'spec_helper'
 
 module PopUploader
   describe Uploader do
-    let (:fixpath) { RSpec.configuration.fixtures_path }
-
-    let (:valid_sheet_path) { File.join fixpath, 'A_NCUploadSheet_valid.xlsx' }
-    let (:valid_uploader) { Uploader.new valid_sheet_path }
-
-    let (:missing_files_path) { File.join fixpath, 'A_NCUploadSheet_missing_files.xlsx' }
-    let (:missing_files_uploader) { Uploader.new missing_files_path }
 
     before(:example) { PopUploader.configure! }
 
@@ -19,6 +12,7 @@ module PopUploader
     end
 
     context "missing files" do
+      before(:example) { setup_dummy_jpegs }
       it "passes a valid sheet" do
         expect{ valid_uploader.validate }.not_to raise_error
       end
@@ -28,13 +22,14 @@ module PopUploader
       end
 
       it "finds missing files" do
-        expect(missing_files_uploader.missing_files.size).to eq 11
+        expect(missing_files_uploader.missing_files.size).to eq 110
       end
 
       it "finds no missing files" do
         expect(valid_uploader.missing_files.size).to eq 0
       end
     end
+
 
     context "uploading" do
       it "uploads a images to flickr"

@@ -7,7 +7,7 @@ module PopUploader
 
     FLICKR_ID_HEADER = { flickr_photo_id: 'flickr_photo_id' }
 
-    TMP_DIR = ENV['TMPDIR'] || '/tmp'
+    TMP_DIR = Dir.tmpdir()
 
     def initialize xlsx_file, extra_headers={}
       @xlsx_file = xlsx_file

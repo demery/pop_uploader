@@ -2,36 +2,7 @@ require 'spec_helper'
 
 module PopUploader
   describe Sheet do
-    let (:fixpath) { RSpec.configuration.fixtures_path }
-
-    let (:valid_sheet_path) { File.join fixpath, 'A_NCUploadSheet_valid.xlsx' }
-    let (:valid_sheet) { Sheet.new valid_sheet_path }
-    let (:sheet_with_optional_header) { Sheet.new valid_sheet_path, optional_headers: { new_header: 'new:header:text' } }
-
-    let (:sheet_header_row_2_path) { File.join fixpath, 'A_NCUploadSheet_valid_header_in_row_2.xlsx' }
-    let (:sheet_header_row_2) { Sheet.new sheet_header_row_2_path }
-
-    let (:alt_valid_sheet_path) { File.join fixpath, 'A_NCUploadSheet_valid_alt_spacings.xlsx' }
-    let (:alt_valid_sheet) { Sheet.new alt_valid_sheet_path }
-
-    let (:invalid_sheet_path) { File.join fixpath, 'A_NCUploadSheet_bad_headers.xlsx' }
-    let (:invalid_sheet) { Sheet.new invalid_sheet_path }
-    let (:sheet_with_altered_header) { Sheet.new invalid_sheet_path, required_headers: { file_name: 'image title XXXX' } }
-    let (:sheet_with_removed_header) { Sheet.new invalid_sheet_path, remove_headers: [ :file_name ] }
-
-    let (:sheet_no_header_path) { File.join fixpath, 'A_NCUploadSheet_no_header.xlsx' }
-    let (:sheet_no_header) { Sheet.new sheet_no_header_path }
-
-    let (:find_row_sheet_path) { File.join fixpath, 'Find_Row_Sheet.xlsx' }
-    let (:find_row_sheet) { Sheet.new find_row_sheet_path }
-
-    let (:tmpdir) { ENV['TMPDIR'] || '/tmp' }
-    let (:outputsheet) { File.join tmpdir, 'outsheet.xlsx' }
-    let (:removals) { [ outputsheet ] }
-    let (:cleanup) { removals.each { |x| File.delete(x) if File.exists?(x) } }
-
     before(:example) { PopUploader.configure! }
-    after(:example) { cleanup }
 
     context "check headers" do
 
@@ -72,7 +43,7 @@ module PopUploader
       end
 
       it "fails with no header" do
-        expect { invalid_sheet }.to raise_error HeaderException
+        expect { sheet_no_header }.to raise_error HeaderException
       end
     end
 
