@@ -5,7 +5,6 @@ describe PopUploader::Metadata do
   EVIDENCE_HASH = {
     file_name: 'Folio_NC6_Se888_717hb_5',
     url_to_catalog: 'http://franklin.library.upenn.edu/record.html?q=Folio_NC6_Se888_717hb&id=FRANKLIN_2637320&',
-    image_type: 'Provenance',
     copy_call_number: 'Folio NC6 Se888 717hb',
     copy_volume_number: '',
     copy_current_repository: 'University of Pennsylvania',
@@ -51,27 +50,27 @@ describe PopUploader::Metadata do
   context "description" do
 
     it "prints a call number" do
-      expect(md.description).to match /#{md.copy_call_number}/
+      expect(md.description).to match(/#{md.copy_call_number}/)
     end
 
     it "includes URL for the book" do
-      expect(md.description).to match /#{Regexp.escape md.url_to_catalog}.*#{md.copy_call_number}/
+      expect(md.description).to match(/#{Regexp.escape md.url_to_catalog}.*#{md.copy_call_number}/)
     end
 
     it "prints a repository" do
-      expect(md.description).to match /<b>Repository<\/b>:\s+#{md.copy_current_repository}/
+      expect(md.description).to match(/<b>Repository<\/b>:\s+#{md.copy_current_repository}/)
     end
 
     it "prints the copy title" do
-      expect(md.description).to match /#{md.copy_title}/
+      expect(md.description).to match(/#{md.copy_title}/)
     end
 
     it "prints the author" do
-      expect(md.description).to match /#{md.authors}/
+      expect(md.description).to match(/#{md.authors}/)
     end
 
     it "prints publication information" do
-      expect(md.description).to match /#{md.published}/
+      expect(md.description).to match(/#{md.published}/)
     end
   end
 
@@ -80,8 +79,8 @@ describe PopUploader::Metadata do
       expect(md.tags).to include "\"#{md.copy_call_number}\""
     end
 
-    it "has an image type tag" do
-      expect(md.tags).to include "\"#{md.image_type}\""
+    it "has a call number tag" do
+      expect(md.tags).to include "\"#{md.copy_call_number}\""
     end
 
     it "has no empty values" do

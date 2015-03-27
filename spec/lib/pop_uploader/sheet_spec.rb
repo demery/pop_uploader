@@ -3,31 +3,35 @@ require 'spec_helper'
 module PopUploader
   describe Sheet do
     before(:example) { PopUploader.configure! }
+    before(:example) { setup_dummy_jpegs }
 
     context "check headers" do
 
       it "reads valid headers" do
-        expect { valid_sheet }.not_to raise_error
+        expect { valid_sheet.validate }.not_to raise_error
       end
 
       it "reads alternately valid headers" do
-        expect { alt_valid_sheet }.not_to raise_error
+        alt_valid_sheet.validate_headers
+        expect(alt_valid_sheet.errors.size).to eq 0
       end
 
       it "fails with invalid headers" do
-        expect { invalid_sheet }.to raise_error HeaderException
+        invalid_sheet.validate_headers
+        expect(invalid_sheet.errors.size).to be > 0
       end
 
       it "fails with no headers" do
-        expect { sheet_no_header }.to raise_error HeaderException
+        expect { sheet_no_header.header_row }.to raise_error HeaderException
+        expect { sheet_no_header.validate_headers }.to raise_error HeaderException
       end
 
       it "reads with altered header" do
-        expect { sheet_with_altered_header }.not_to raise_error
+        expect { sheet_with_altered_header.validate_headers }.not_to raise_error
       end
 
       it "reads with removed header" do
-        expect { sheet_with_removed_header }.not_to raise_error
+        expect { sheet_with_removed_header.validate_headers }.not_to raise_error
       end
 
       it "adds an optional header" do
@@ -42,8 +46,9 @@ module PopUploader
         expect(sheet_header_row_2.header_row.row_num).to eq 2
       end
 
-      it "fails with no header" do
-        expect { sheet_no_header }.to raise_error HeaderException
+      it "fails with missing required values" do
+        sheet_missing_values.validate_values
+        expect(sheet_missing_values.errors.size).to be > 0
       end
     end
 
@@ -96,6 +101,20 @@ module PopUploader
       end
 
     end # context "writing a spreadsheet"
+
+    context "missing files" do
+      before(:example) { setup_dummy_jpegs }
+      it "passes a valid sheet" do
+        expect{ valid_sheet }.not_to raise_error
+      end
+
+      it "fails when files are missing" do
+        expect { sheet_missing_files.validate }.to raise_error PopException
+      end
+
+    end
+
+
 
   end # describe Sheet
 end # module PopUploader

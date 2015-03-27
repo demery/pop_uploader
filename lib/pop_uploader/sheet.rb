@@ -9,7 +9,7 @@ module PopUploader
   # that these are accessed by symbol attributes mapped to them.
   #
   class Sheet
-    attr_reader :sheet, :dir, :filename
+    attr_reader :sheet, :dir, :filename, :errors
 
     class << self
       # the list of headers we're supposed to have
@@ -114,6 +114,7 @@ module PopUploader
       @sheet               = Roo::Spreadsheet.open path
       @sheet.default_sheet = sheet.sheets.first
       @known_headers       = HeaderList.new PopUploader.header_config.headers
+      @errors              = []
 
       options[:remove_headers] and options[:remove_headers].each do |attr|
         @known_headers.remove attr
@@ -122,8 +123,6 @@ module PopUploader
       options[:required_headers] and options[:required_headers].each do |k,v|
         @known_headers.add k, v
       end
-
-      validate
 
       options[:optional_headers] and options[:optional_headers].each do |k,v|
         optional_header = true
@@ -220,6 +219,22 @@ module PopUploader
     end
 
     #===========================================================================
+    # Files
+    #===========================================================================
+
+    def find_files
+      each_row do |row|
+        actual_path = Util.find_file row.image_file_path
+        row.actual_filename = File.basename actual_path if actual_path
+      end
+    end
+
+    def missing_files
+      find_files
+      find_all_rows { |row| ! row.actual_filename }
+    end
+
+    #===========================================================================
     # Headers
     #===========================================================================
     def output_headers
@@ -261,9 +276,27 @@ module PopUploader
     #===========================================================================
     def validate
       validate_headers
-      if @errors and @errors.size > 0
-        (msg ||= []) << "ERROR: Headers missing from #{filename}" << @errors
-        raise HeaderException, msg.join($/)
+      # fail here because subsequent validation depend on headers
+      fail_if_errors HeaderException, "Headers missing from #{@filename}"
+
+      validate_files
+      validate_values
+      fail_if_errors PopException, "Errors encountered validating #{@filename}"
+    end
+
+    def validate_values
+      each_row do |row|
+        PopUploader.header_config.required_value_headers.each do |header|
+          unless row.extract_value header
+            add_errors "Missing value for image #{row.file_name}: #{header}"
+          end
+        end
+      end
+    end
+
+    def validate_files
+      missing_files.each do |file|
+        add_errors "Missing expected file #{file}"
       end
     end
 
@@ -283,9 +316,20 @@ module PopUploader
 
     def missing_headers
       @known_headers.headers.each do |hdr|
-        unless headers_normalized.include?(hdr.normal)
-          (@errors ||= []) << "Expected header not found #{hdr.raw}"
+        unless !hdr.optional? && headers_normalized.include?(hdr.normal)
+          add_errors "Expected header not found #{hdr.raw}"
         end
+      end
+    end
+
+    def add_errors *errs
+      ((@errors ||= [])  << errs).flatten!
+    end
+
+    def fail_if_errors err_class, head_msg
+      if @errors and @errors.size > 0
+        (msg = []) << head_msg << @errors
+        raise err_class, msg.join($/)
       end
     end
 

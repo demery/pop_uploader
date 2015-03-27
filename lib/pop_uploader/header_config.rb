@@ -7,6 +7,7 @@ module PopUploader
     REQUIRED_HEADER_LISTS = %w(
         header_definitions
         required_header_definitions
+        required_values
         tag_headers
         associated_name_headers
         identified_name_headers
@@ -79,6 +80,10 @@ module PopUploader
       ].reduce({}) { |hash,key|
         hash[key] = symify_values key; hash
       }
+    end
+
+    def required_value_headers
+      symify_values :required_values
     end
 
     def required_header_definitions

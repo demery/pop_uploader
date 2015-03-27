@@ -8,7 +8,6 @@
 :header_definitions:
   :file_name:                 "image file name"
   :url_to_catalog:            "url to catalog"
-  :image_type:                "evidence: image category"
   :copy_call_number:          "copy: call number/shelf mark"
   :copy_volume_number:        "copy: volume number"
   :copy_current_repository:   "copy: current repository"
@@ -45,7 +44,6 @@
 :required_header_definitions:
   - file_name
   - url_to_catalog
-  - image_type
   - copy_call_number
   - copy_volume_number
   - copy_current_repository
@@ -72,7 +70,6 @@
   - copy_title
 
 :tag_headers:
-  - image_type
   - copy_call_number
   - copy_current_repository
   - copy_current_collection

@@ -15,32 +15,11 @@ module PopUploader
       @pop_sheet = Sheet.new(xlsx_file, optional_headers: optional_headers)
     end
 
-    def find_files
-      @pop_sheet.each_row do |row|
-        actual_path = Util.find_file row.image_file_path
-        row.actual_filename = File.basename actual_path if actual_path
-      end
-    end
-
-    def validate
-      missing = missing_files.map(&:file_name)
-
-      unless missing.empty?
-        raise PopException, "Could not find the following image files: #{missing.join('; ')}"
-      end
-    end
-
-    def missing_files
-      find_files
-      @pop_sheet.find_all_rows { |row| ! row.actual_filename }
-    end
-
     def optional_headers
       FLICKR_ID_HEADER.merge @extra_headers
     end
 
     def upload_images flickr_client, skip_validation=false
-      find_files
       validate unless skip_validation
       pop_sheet.each_row do |row|
         id = upload row, flickr_client
