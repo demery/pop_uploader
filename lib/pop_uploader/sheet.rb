@@ -11,64 +11,6 @@ module PopUploader
   class Sheet
     attr_reader :sheet, :dir, :filename, :errors
 
-    class << self
-      # the list of headers we're supposed to have
-      CANONICAL_HEADERS =  {
-        file_name:                               'image title',
-        url_to_catalog:                          'url to catalog',
-        image_type:                              'image type',
-        copy_call_number:                        'copy:call number',
-        copy_volume_number:                      'copy:volume number',
-        copy_current_repository:                 'copy:current repository',
-        copy_current_collection:                 'copy:current collection',
-        copy_author:                             'copy:author',
-        copy_title:                              'copy:title',
-        copy_place_of_publication:               'copy:place of publication',
-        copy_date_of_publication:                'copy:date of publication',
-        copy_printer_publisher:                  'copy:printer/publisher',
-        evidence_location_in_book:               'evidence:location in book',
-        evidence_format:                         'evidence:format',
-        evidence_type:                           'evidence:type',
-        evidence_transcription:                  'evidence:transcription',
-        evidence_individual_associated_name:     'evidence:individual associated name',
-        evidence_organization_associated_name:   'evidence:organization associated name',
-        evidence_family_associated_name:         'evidence:family associated name',
-        evidence_date_associated:                'evidence:date associated',
-        evidence_place_associated:               'evidence:place associated',
-        evidence_creator_of_evidence:            'evidence:creator of evidence',
-        evidence_description:                    'evidence:description',
-        evidence_status:                         'evidence:status',
-        id_date:                                 'id:date',
-        id_place:                                'id:place',
-        id_individual_owner:                     'id:individual:owner',
-        id_organization_owner:                   'id:organization:owner',
-        id_individual_donor:                     'id:individual:donor',
-        id_organization_donor:                   'id:organization:donor',
-        id_individual_recipient:                 'id:individual:recipient',
-        id_organization_recipient:               'id:organization:recipient',
-        id_individual_seller:                    'id:individual:seller',
-        id_organization_seller:                  'id:organization:seller',
-        id_individual_selling_agent:             'id:individual:selling agent',
-        id_organization_selling_agent:           'id:organization:selling agent',
-        id_individual_buyer:                     'id:individual:buyer',
-        id_organization_buyer:                   'id:organization:buyer',
-        comments:                                'comments'
-      }
-
-      # an array of all canonical headers as normalized strings
-      CANONICAL_NORMALS = CANONICAL_HEADERS.values.map(&:normalize)
-
-      def canonical_headers
-        # return a deep copy of the hash
-        CANONICAL_HEADERS.inject({}) { |hash, kv|
-          hdr = Header.new(kv.first, kv.last)
-          hash[hdr.attr] = hdr
-          hash
-        }
-      end
-
-    end
-
     # Create a new PopUploader::Sheet object from file at path. On load the
     # sheet is validated to ensure that it has all expected
     # headers. The list of required headers can be altered using the
