@@ -5,7 +5,9 @@
 
 <b>EVIDENCE</b>
 <b>Provenance evidence</b>: <%= evidence_summary %>
+<% if present?(evidence_location_in_book) -%>
 <b>Location in book</b>: <%= evidence_location_in_book %>
+<% end -%>
 <% if present?(evidence_transcription) -%>
 <b>Transcription</b>: <%= evidence_transcription %>
 <% end -%>
@@ -32,6 +34,7 @@
 <b>Identified place(s)</b>: <%= id_place %>
 <% end -%><%# Add a blank line only if identified  -%>
 <% end -%>
+
 <b>COPY</b>
 <b>Repository</b>: <%= copy_current_repository %>
 <b>Call number</b>: <a href="<%= url_to_catalog %>"><%= copy_call_number %></a>

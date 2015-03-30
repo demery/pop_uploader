@@ -38,13 +38,13 @@ EOT
     end
 
     def delete
-      exit_with_error "Please provide at least one PHOTO_ID" unless argv.size > 0
+      PopUploader.exit_with_error "Please provide at least one PHOTO_ID" unless argv.size > 0
       @client ||= connect_to_flickr!
       while (photo_id = argv.shift) do
         begin
           @client.delete(photo_id).methods
         rescue Exception => ex
-          exit_with_error "Whoopsie! Could not delete photo with id '#{photo_id}'\nReason: #{ex}"
+          PopUploader.exit_with_error "Whoopsie! Could not delete photo with id '#{photo_id}'\nReason: #{ex}"
         end
       end
     end
@@ -63,7 +63,7 @@ EOT
       begin
         FlickrClient.connect!
       rescue PopException => ex
-        exit_with_error "Could not connect to Flickr: #{ex}"
+        PopUploader.exit_with_error "Could not connect to Flickr: #{ex}"
       end
     end
 

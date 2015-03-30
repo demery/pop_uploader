@@ -20,7 +20,7 @@ module PopUploader
     end
 
     def upload_images flickr_client, skip_validation=false
-      validate unless skip_validation
+      @pop_sheet.validate unless skip_validation
       pop_sheet.each_row do |row|
         id = upload row, flickr_client
         # capture the Flickr ID

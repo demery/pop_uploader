@@ -13,7 +13,7 @@ module PopUploader
     end
 
     def optional?
-      @optional
+      !!@optional
     end
 
     def to_s

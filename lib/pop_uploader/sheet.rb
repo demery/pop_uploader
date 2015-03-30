@@ -93,6 +93,9 @@ module PopUploader
         each_row do |row|
           wksh.add_row all_attrs.map { |attr| row.send attr }
         end
+        # ugh, override auto column widths
+        widths = all_attrs.map { |attr| 20 }
+        wksh.column_widths(*widths)
       end
       p.serialize filename
     end
@@ -258,7 +261,8 @@ module PopUploader
 
     def missing_headers
       @known_headers.headers.each do |hdr|
-        unless !hdr.optional? && headers_normalized.include?(hdr.normal)
+        unless hdr.optional? || headers_normalized.include?(hdr.normal)
+          STDERR.puts "#{hdr.inspect}: #{hdr.optional?}"
           add_errors "Expected header not found #{hdr.raw}"
         end
       end
