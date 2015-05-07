@@ -17,6 +17,7 @@ module PopUploader
         seller_headers
         selling_agent_headers
         buyer_headers
+        other_headers
     ).map(&:to_sym)
 
     def initialize header_yml
@@ -77,6 +78,7 @@ module PopUploader
        :seller_headers,
        :selling_agent_headers,
        :buyer_headers
+       :other_headers
       ].reduce({}) { |hash,key|
         hash[key] = symify_values key; hash
       }
@@ -104,6 +106,10 @@ module PopUploader
 
     def owner_headers
       symify_values :owner_headers
+    end
+
+    def other_headers
+      symify_values :other_headers
     end
 
     def donor_headers

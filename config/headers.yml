@@ -36,6 +36,7 @@
   :id_selling_agent:          "id: selling agent"
   :id_buyer:                  "id: buyer"
   :id_bindier:                "id: binder"
+  :id_other:                  "id: other"
   :id_viaf_link:              "id: viaf authority link"
 
 
@@ -88,6 +89,7 @@
   - id_seller
   - id_selling_agent
   - id_buyer
+  - id_other
 
 :associated_name_headers:
   - evidence_associated_name
@@ -99,6 +101,7 @@
   - id_seller
   - id_selling_agent
   - id_buyer
+  - id_other
 
 :owner_headers:
   - id_owner
@@ -117,3 +120,6 @@
 
 :buyer_headers:
   - id_buyer
+
+:other_headers:
+  - id_other

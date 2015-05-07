@@ -63,6 +63,10 @@ module PopUploader
       id_list 'owner', PopUploader.header_config.owner_headers
     end
 
+    def others
+      id_list 'other', PopUploader.header_config.other_headers
+    end
+
     def identified?
       @is_identified ||= identification_headers.any? { |attr|
         v = vals attr; v && v.size > 0
