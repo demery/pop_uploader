@@ -121,5 +121,5 @@
 :buyer_headers:
   - id_buyer
 
-:other_headers:
+:otherid_headers:
   - id_other

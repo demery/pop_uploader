@@ -64,7 +64,7 @@ module PopUploader
     end
 
     def others
-      id_list 'other', PopUploader.header_config.other_headers
+      id_list 'other', PopUploader.header_config.otherid_headers
     end
 
     def identified?
