@@ -34,7 +34,13 @@ EOT
     def upload
       xlsx_file = argv.shift
       @client ||= connect_to_flickr!
-      Uploader.new(xlsx_file).upload_images @client
+      begin
+        Uploader.new(xlsx_file).upload_images @client
+      rescue PopException => ex
+        msg = "An error occurred attempting to upload using #{xlsx_file}."
+        msg += "\nReason: #{ex}"
+        PopUploader.exit_with_error msg
+      end
     end
 
     def delete
