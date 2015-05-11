@@ -77,7 +77,7 @@ module PopUploader
        :donor_headers,
        :seller_headers,
        :selling_agent_headers,
-       :buyer_headers
+       :buyer_headers,
        :other_headers
       ].reduce({}) { |hash,key|
         hash[key] = symify_values key; hash

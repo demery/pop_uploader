@@ -22,6 +22,7 @@ describe PopUploader::Metadata do
     evidence_date_associated: '1674',
     evidence_place_associated: 'Ipre',
     evidence_description: '',
+    id_other: '',
     id_date: '',
     id_place: '',
     id_owner: '',
