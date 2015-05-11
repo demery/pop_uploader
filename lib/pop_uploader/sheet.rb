@@ -11,6 +11,7 @@ module PopUploader
   class Sheet
     attr_reader :sheet, :dir, :filename, :errors
 
+
     # Create a new PopUploader::Sheet object from file at path. On load the
     # sheet is validated to ensure that it has all expected
     # headers. The list of required headers can be altered using the
@@ -124,6 +125,10 @@ module PopUploader
       end
     end
 
+    def column_letter index
+      (1..index).inject('A') { |letter,i| letter.succ! }
+    end
+
     def find_row from_row=nil, up_to_row=nil
       # use sheet.last_row or up_to_row whichever is less
       last_row = Util.min up_to_row, sheet.last_row
@@ -222,7 +227,7 @@ module PopUploader
     def validate
       validate_headers
       # fail here because subsequent validation depend on headers
-      fail_if_errors HeaderException, "Headers missing from #{@filename}"
+      fail_if_errors HeaderException, "Header errors found in #{@filename}"
 
       validate_files
       validate_values
@@ -246,6 +251,9 @@ module PopUploader
     end
 
     def validate_headers
+      blank_headers
+      # the subsequent validations will fails if headers are blank
+      return if has_errors?
       unexpected_headers
       missing_headers
     end
@@ -259,10 +267,20 @@ module PopUploader
       end
     end
 
+    def blank_headers
+      last_header = 'origin'
+      header_row.values.each_with_index { |raw,index|
+        if raw.nil? || raw.strip.empty?
+          col = column_letter index
+          add_errors "Blank header found in column #{col} (after #{last_header})"
+        end
+      }
+    end
+
     def missing_headers
       @known_headers.headers.each do |hdr|
         unless hdr.optional? || headers_normalized.include?(hdr.normal)
-          STDERR.puts "#{hdr.inspect}: #{hdr.optional?}"
+          # STDERR.puts "#{hdr.inspect}: #{hdr.optional?}"
           add_errors "Expected header not found #{hdr.raw}"
         end
       end
@@ -272,8 +290,13 @@ module PopUploader
       ((@errors ||= [])  << errs).flatten!
     end
 
+    def has_errors?
+      @errors && @errors.size > 0
+    end
+
     def fail_if_errors err_class, head_msg
-      if @errors and @errors.size > 0
+      # STDERR.puts "Errors are: #{@errors}"
+      if has_errors?
         (msg = []) << head_msg << @errors
         raise err_class, msg.join($/)
       end

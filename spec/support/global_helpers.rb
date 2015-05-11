@@ -26,6 +26,7 @@ module PopUploader
       base.let(:alt_valid_sheet_path)       { File.join fixpath, "#{sheet_base_name}_valid_alt_spacings.xlsx"}
       base.let(:invalid_sheet_path)         { File.join fixpath, "#{sheet_base_name}_bad_headers.xlsx"}
       base.let(:sheet_no_header_path)       { File.join fixpath, "#{sheet_base_name}_no_header.xlsx"}
+      base.let(:sheet_blank_header_path)    { File.join fixpath, "#{sheet_base_name}_blank_header.xlsx"}
       base.let(:sheet_missing_values_path)  { File.join fixpath, "#{sheet_base_name}_missing_values.xlsx"}
       base.let(:find_row_sheet_path)        { File.join fixpath, 'Find_Row_Sheet.xlsx' }
       base.let(:outputsheet)                { File.join tmpdir, 'outsheet.xlsx' }
@@ -38,6 +39,7 @@ module PopUploader
       base.let(:alt_valid_sheet)            { Sheet.new alt_valid_sheet_path }
       base.let(:invalid_sheet)              { Sheet.new invalid_sheet_path }
       base.let(:sheet_no_header)            { Sheet.new sheet_no_header_path }
+      base.let(:sheet_blank_header)         { Sheet.new sheet_blank_header_path }
       base.let(:sheet_missing_values)       { Sheet.new sheet_missing_values_path }
       base.let(:sheet_with_altered_header)  { Sheet.new invalid_sheet_path, required_headers: { file_name: 'image file name XXX' } }
       base.let(:sheet_with_removed_header)  { Sheet.new invalid_sheet_path, remove_headers: [ :file_name ] }

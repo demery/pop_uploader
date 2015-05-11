@@ -50,6 +50,13 @@ module PopUploader
         sheet_missing_values.validate_values
         expect(sheet_missing_values.errors.size).to be > 0
       end
+
+      it "fails with a empty header" do
+        sheet_blank_header.validate_headers
+        expect(sheet_blank_header.errors.size).to eq 3
+        # columns V, Z, and AF have blank headers
+        expect(sheet_blank_header.errors.grep(/Blank header.*(V|Z|AF)/).size).to eq 3
+      end
     end
 
     context "find_row" do
