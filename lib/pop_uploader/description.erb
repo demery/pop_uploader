@@ -33,6 +33,12 @@
 <% if present?(id_place) -%>
 <b>Identified place(s)</b>: <%= id_place %>
 <% end -%><%# Add a blank line only if identified  -%>
+<% if present?(evidence_comments) -%>
+<b>Comment</b>: <%= evidence_comments %>
+<% end -%>
+<% if present?(evidence_citation) -%>
+<b>Reference citation</b>: <%= evidence_citation %>
+<% end -%>
 <% end -%>
 
 <b>COPY</b>

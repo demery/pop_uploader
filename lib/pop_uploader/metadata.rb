@@ -35,8 +35,9 @@ module PopUploader
     def tag_url tag_string
       "#{pop_user_url}/tags/#{tag_string.normalize}"
     end
+
     def identifications
-      [ donors, recipients, sellers, selling_agents, buyers, owners ].flatten
+      [ donors, recipients, sellers, selling_agents, buyers, owners, others ].flatten
     end
 
     def donors
