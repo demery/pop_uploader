@@ -8,6 +8,11 @@ FlickRaw.shared_secret = ENV['POP_FLICKR_API_SECRET']
 flickr.access_token    = ENV['POP_FLICKR_ACCESS_TOKEN']
 flickr.access_secret   = ENV['POP_FLICKR_ACCESS_SECRET']
 
+puts "api_key:       #{ENV['POP_FLICKR_ACCESS_SECRET']}"
+puts "shared_secret: #{ENV['POP_FLICKR_API_SECRET']}"
+puts "access_token:  #{ENV['POP_FLICKR_ACCESS_TOKEN']}"
+puts "access_secret: #{ENV['POP_FLICKR_ACCESS_SECRET']}"
+
 # From here you are logged:
 login = flickr.test.login
 puts "You are now authenticated as #{login.inspect}"
