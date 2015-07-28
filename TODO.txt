@@ -1,0 +1,40 @@
+# TODO
+
+Done Update flickr photo description template
+
+Done Add 'citation' to list of columns
+
+Done Create Pop::Connection object
+
+       - #set_comment flickr_id
+
+Done Pop::Metadata - add transcriptions
+
+Done Flickr Description
+Done   - Add call number tag URL for "All images from this book"
+Done   - Add transcription
+Done
+Done Re-write spreadsheet with Flickr ID
+
+Done Gemify the whole business.
+
+- Add image URL to rewritten spreadsheet
+- Test creation of image and set management
+
+? Test uploading from URL instead of local file.
+     Why? What's the need for this? Easier with Box?
+
+Done: Build deletion script for development
+
+Done - Done: Get development API key
+Done
+Done - Done: Test upload of image to Flickr
+Done
+Done     - Done: Title
+Done     - Done: Description
+Done     - Done: Tags
+Done     - Done: Mark public
+Done     - Done: License
+Done
+Done - Done: Read data from spreadsheet
+Done
