@@ -21,7 +21,9 @@ describe PopUploader::Metadata do
     evidence_associated_name: 'Monsieur le Baron de Rocca',
     evidence_date_associated: '1674',
     evidence_place_associated: 'Ipre',
+    evidence_comments: 'The evidence comments',
     evidence_description: '',
+    evidence_citation: 'Some evidence citation',
     id_other: '',
     id_date: '',
     id_place: '',
@@ -72,6 +74,15 @@ describe PopUploader::Metadata do
 
     it "prints publication information" do
       expect(md.description).to match(/#{md.published}/)
+    end
+
+    it "prints the comments" do
+      expect(md.description).to match(/#{evidence[:evidence_comments]}/)
+    end
+
+    it "prints evidence_citation" do
+      STDERR.puts "md.evidence_citation #{md.evidence_citation}"
+      expect(md.description).to match(/#{evidence[:evidence_citation]}/)
     end
   end
 

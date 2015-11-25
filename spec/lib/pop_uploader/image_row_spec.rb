@@ -59,5 +59,15 @@ module PopUploader
       end
     end
 
+    context "fields" do
+      it "has evidence_comments" do
+        expect(image_row.evidence_comments).not_to be_nil
+      end
+
+      it "has file_name" do
+        expect(image_row.file_name).not_to be_nil
+      end
+    end
+
   end # describe ImageRow
 end # module PopUploaderxk

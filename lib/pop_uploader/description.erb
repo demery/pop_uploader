@@ -33,12 +33,6 @@
 <% if present?(id_place) -%>
 <b>Identified place(s)</b>: <%= id_place %>
 <% end -%><%# Add a blank line only if identified  -%>
-<% if present?(evidence_comments) -%>
-<b>Comment</b>: <%= evidence_comments %>
-<% end -%>
-<% if present?(evidence_citation) -%>
-<b>Reference citation</b>: <%= evidence_citation %>
-<% end -%>
 <% end -%>
 
 <b>COPY</b>
@@ -58,6 +52,16 @@
 <b>Printer/Publisher</b>: <%= copy_printer_publisher %>
 <% end -%>
 <a href="<%= same_book_url %>">All images from this book</a>
+<% if present?(evidence_comments) -%>
+
+<b>COMMENT</b>
+<%= evidence_comments %>
+<% end -%>
+<% if present?(evidence_citation) -%>
+
+<b>CITATION</b>
+<%= evidence_citation %>
+<% end -%>
 
 <b>FIND IN POP</b>
 <% tag_values.each do |tag| -%>
