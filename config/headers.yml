@@ -8,37 +8,33 @@
 :header_definitions:
   :file_name:                 "image file name"
   :url_to_catalog:            "url to catalog"
+  :copy_current_repository:   "copy: current repository"
+  :copy_current_owner:        "copy: current owner"
+  :copy_current_location:     "copy: current geographic location"
   :copy_call_number:          "copy: call number/shelf mark"
   :copy_volume_number:        "copy: volume number"
-  :copy_current_repository:   "copy: current repository"
-  :copy_current_collection:   "copy: current collection"
+  :copy_other_id:             "copy: other id"
   :copy_author:               "copy: author"
   :copy_title:                "copy: title"
   :copy_place_of_publication: "copy: place of publication"
   :copy_date_of_publication:  "copy: date of publication"
-  :copy_printer_publisher:    "copy: printer/publisher"
+  :copy_printer_publisher:    "copy: printer/publisher/scribe"
   :evidence_location_in_book: "evidence: location in book"
   :evidence_format:           "evidence: format"
+  :evidence_date:             "evidence: date"
+  :evidence_place:            "evidence: place"
   :evidence_type:             "evidence: content type"
   :evidence_transcription:    "evidence: transcription"
-  :evidence_associated_name:  "evidence: associated name"
-  :evidence_date_associated:  "evidence: associated date"
-  :evidence_place_associated: "evidence: associated place"
-  :evidence_description:      "evidence: description"
-  :evidence_citation:         "evidence: reference citation"
+  :evidence_citation:         "evidence: citation"
   :evidence_comments:         "evidence: comments"
-  :id_date:                   "id: date"
-  :id_place:                  "id: place"
   :id_owner:                  "id: owner"
-  :id_donor:                  "id: donor"
-  :id_recipient:              "id: recipient"
-  :id_seller:                 "id: seller"
-  :id_selling_agent:          "id: selling agent"
-  :id_buyer:                  "id: buyer"
-  :id_bindier:                "id: binder"
+  :id_librarian:              "id: librarian"
+  :id_bookseller:             "id: bookseller/auction house"
+  :id_binder:                 "id: binder"
   :id_other:                  "id: other"
+  :id_unknown:                "id: unknown"
   :id_viaf_link:              "id: viaf authority link"
-
+  :id_comments:               "id: comments"
 
 # Required headers definitions are those headers that must be defined
 # for the pop uploader to work.
@@ -58,11 +54,7 @@
   - evidence_format
   - evidence_type
   - evidence_transcription
-  - evidence_date_associated
-  - evidence_place_associated
-  - evidence_description
-  - id_date
-  - id_place
+  - id
 
 :required_values:
   - copy_current_repository
@@ -74,52 +66,35 @@
   - copy_call_number
   - copy_current_repository
   - copy_current_collection
+  - copy_current_owner
   - copy_author
   - copy_place_of_publication
   - copy_date_of_publication
+  - copy_printer_publisher
   - evidence_format
-  - evidence_associated_name
-  - evidence_date_associated
-  - evidence_place_associated
-  - id_date
-  - id_place
+  - evidence_date
+  - evidence_place
+  - evidence_type
   - id_owner
-  - id_donor
-  - id_recipient
-  - id_seller
-  - id_selling_agent
-  - id_buyer
+  - id_librarian
+  - id_bookseller
+  - id_binder
   - id_other
-
-:associated_name_headers:
-  - evidence_associated_name
+  - id_unknown
 
 :identified_name_headers:
   - id_owner
-  - id_donor
-  - id_recipient
-  - id_seller
-  - id_selling_agent
-  - id_buyer
+  - id_librarian
+  - id_bookseller
+  - id_binder
   - id_other
+  - id_unknown
 
 :owner_headers:
   - id_owner
 
-:donor_headers:
-  - id_donor
-
-:recipient_headers:
-  - id_recipient
-
 :seller_headers:
-  - id_seller
-
-:selling_agent_headers:
-  - id_selling_agent
-
-:buyer_headers:
-  - id_buyer
+  - id_bookseller
 
 :otherid_headers:
   - id_other

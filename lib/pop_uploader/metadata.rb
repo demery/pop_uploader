@@ -125,7 +125,7 @@ module PopUploader
 
     def photo_title
       if identified_names?
-        "#{format}: #{identifications.map(&:name).join '; '}"
+        "#{format}: #{identifications.map(&:name).join '; '} (#{copy_current_repository})"
       else
         "#{format} from #{copy_current_repository} #{copy_call_number}"
       end

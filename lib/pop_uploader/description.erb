@@ -1,3 +1,5 @@
+<a href="<%= same_book_url %>">All images from this book</a>
+
 <% if evidence? -%>
 <b><%= identified? ? "Identified" : "Unidentified" %></b>
 <% end -%>
@@ -51,7 +53,6 @@
 <% if present?(copy_printer_publisher) -%>
 <b>Printer/Publisher</b>: <%= copy_printer_publisher %>
 <% end -%>
-<a href="<%= same_book_url %>">All images from this book</a>
 <% if present?(evidence_comments) -%>
 
 <b>COMMENT</b>
