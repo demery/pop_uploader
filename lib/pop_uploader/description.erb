@@ -13,28 +13,15 @@
 <% if present?(evidence_transcription) -%>
 <b>Transcription</b>: <%= evidence_transcription %>
 <% end -%>
-<% if present?(associated_names) -%>
-<b>Associated name(s)</b>: <%= associated_names %>
 <% end -%>
-<% if present?(associated_dates) -%>
-<b>Associated date(s)</b>: <%= associated_dates %>
-<% end -%>
-<% if present?(associated_places) -%>
-<b>Associated place(s)</b>: <%= associated_places %>
-<% end -%>
-<% end -%>
+<%# TODO: Add evidence date and place, comments  %>
 <% if identified? -%>
 
 <b>IDENTIFICATION</b>
 <% identifications.each do |id| -%>
 <b>Identified</b>: <%= id %>
 <% end -%>
-<% if present?(id_date) -%>
-<b>Identified date(s)</b>: <%= id_date %>
-<% end -%>
-<% if present?(id_place) -%>
-<b>Identified place(s)</b>: <%= id_place %>
-<% end -%><%# Add a blank line only if identified  -%>
+<%# TODO: Add identification comments %>
 <% end -%>
 
 <b>COPY</b>
@@ -52,11 +39,6 @@
 <% end -%>
 <% if present?(copy_printer_publisher) -%>
 <b>Printer/Publisher</b>: <%= copy_printer_publisher %>
-<% end -%>
-<% if present?(evidence_comments) -%>
-
-<b>COMMENT</b>
-<%= evidence_comments %>
 <% end -%>
 <% if present?(evidence_citation) -%>
 

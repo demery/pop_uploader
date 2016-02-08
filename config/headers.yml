@@ -82,13 +82,13 @@
   - id_other
   - id_unknown
 
+# Decide what to do about other
 :identified_name_headers:
   - id_owner
   - id_librarian
   - id_bookseller
   - id_binder
   - id_other
-  - id_unknown
 
 :owner_headers:
   - id_owner

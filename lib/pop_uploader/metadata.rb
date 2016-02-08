@@ -37,27 +37,13 @@ module PopUploader
     end
 
     def identifications
+      # TODO: Update to match current identifications
+      # TODO: Adapt for new list format
       [ donors, recipients, sellers, selling_agents, buyers, owners, others ].flatten
-    end
-
-    def donors
-      id_list 'donor', PopUploader.header_config.donor_headers
-    end
-
-    def recipients
-      id_list 'recipient', PopUploader.header_config.recipient_headers
     end
 
     def sellers
       id_list 'seller', PopUploader.header_config.seller_headers
-    end
-
-    def selling_agents
-      id_list 'selling agent', PopUploader.header_config.selling_agent_headers
-    end
-
-    def buyers
-      id_list 'buyer', PopUploader.header_config.buyer_headers
     end
 
     def owners
@@ -75,7 +61,7 @@ module PopUploader
     end
 
     def identification_headers
-      PopUploader.header_config.identified_name_headers + [ :id_place, :id_date ]
+      PopUploader.header_config.identified_name_headers
     end
 
     class Ident
