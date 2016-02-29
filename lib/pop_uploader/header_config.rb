@@ -9,14 +9,9 @@ module PopUploader
         required_header_definitions
         required_values
         tag_headers
-        associated_name_headers
         identified_name_headers
         owner_headers
-        donor_headers
-        recipient_headers
         seller_headers
-        selling_agent_headers
-        buyer_headers
         otherid_headers
     ).map(&:to_sym)
 
@@ -71,13 +66,9 @@ module PopUploader
       [
        :required_header_definitions,
        :tag_headers,
-       :associated_name_headers,
        :identified_name_headers,
        :owner_headers,
-       :donor_headers,
        :seller_headers,
-       :selling_agent_headers,
-       :buyer_headers,
        :otherid_headers
       ].reduce({}) { |hash,key|
         hash[key] = symify_values key; hash

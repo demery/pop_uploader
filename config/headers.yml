@@ -9,6 +9,7 @@
   :file_name:                 "image file name"
   :url_to_catalog:            "url to catalog"
   :copy_current_repository:   "copy: current repository"
+  :copy_current_collection:   "copy: current collection"
   :copy_current_owner:        "copy: current owner"
   :copy_current_location:     "copy: current geographic location"
   :copy_call_number:          "copy: call number/shelf mark"
@@ -32,9 +33,8 @@
   :id_bookseller:             "id: bookseller/auction house"
   :id_binder:                 "id: binder"
   :id_other:                  "id: other"
-  :id_unknown:                "id: unknown"
+  :id_unknown:                "id: role unknown"
   :id_viaf_link:              "id: viaf authority link"
-  :id_comments:               "id: comments"
 
 # Required headers definitions are those headers that must be defined
 # for the pop uploader to work.
@@ -54,7 +54,6 @@
   - evidence_format
   - evidence_type
   - evidence_transcription
-  - id
 
 :required_values:
   - copy_current_repository
