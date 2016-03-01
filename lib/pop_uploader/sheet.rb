@@ -52,6 +52,10 @@ module PopUploader
     # may or may not be present in the spreadsheet, while avoiding
     # validation failure in the event the column isn't present.
     def initialize(path, options={})
+      # We do this because, roo will try to open any path -- even ones that
+      # don't exist on the file system -- and return misleading errors.
+      raise "Unable find Excel file: #{path}" unless File.exists?(path)
+
       @filename            = File.basename path
       @dir                 = File.dirname path
       @sheet               = Roo::Spreadsheet.open path
