@@ -13,6 +13,10 @@
 <% if present?(evidence_transcription) -%>
 <b>Transcription</b>: <%= evidence_transcription %>
 <% end -%>
+<% if present?(evidence_comments) -%>
+<b>Comments</b>:
+<%= evidence_comments -%>
+<% end -%>
 <% end -%>
 <%# TODO: Add evidence date and place, comments  %>
 <% if identified? -%>

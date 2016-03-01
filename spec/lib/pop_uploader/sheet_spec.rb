@@ -13,6 +13,7 @@ module PopUploader
 
       it "reads alternately valid headers" do
         alt_valid_sheet.validate_headers
+        puts "hi: #{alt_valid_sheet.errors.inspect}"
         expect(alt_valid_sheet.errors.size).to eq 0
       end
 

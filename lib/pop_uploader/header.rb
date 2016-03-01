@@ -16,6 +16,10 @@ module PopUploader
       !!@optional
     end
 
+    def human_name
+      (raw.split(/:/, 2)[1] || '').strip.capitalize
+    end
+
     def to_s
       raw
     end

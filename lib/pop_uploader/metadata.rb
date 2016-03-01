@@ -39,7 +39,10 @@ module PopUploader
     def identifications
       # TODO: Update to match current identifications
       # TODO: Adapt for new list format
-      [ donors, recipients, sellers, selling_agents, buyers, owners, others ].flatten
+      PopUploader.header_config.identified_name_headers.flat_map do |header|
+        get_ids header
+      end
+      # [ unknowns, binders, librarians, booksellers, owners, others ].flatten
     end
 
     def sellers
@@ -70,6 +73,12 @@ module PopUploader
       def to_s; "#{name}, #{role}"; end
     end
 
+    def get_ids id_attr
+      header = PopUploader.header_config.header id_attr
+      role = header.human_name
+      vals(id_attr).map { |name| Ident.new name, role }
+    end
+
     def id_list role, attrs
       attrs.flat_map { |attr|
         vals attr
@@ -82,20 +91,6 @@ module PopUploader
       PopUploader.header_config.identified_name_headers.any? { |attr|
         v = vals attr; v && v.size > 0
       }
-    end
-
-    def associated_places
-      @associated_places ||= vals(:evidence_place_associated).join('; ')
-    end
-
-    def associated_dates
-      @associated_dates ||= vals(:evidence_date_associated).join('; ')
-    end
-
-    def associated_names
-      PopUploader.header_config.associated_name_headers.flat_map { |attr|
-        vals attr
-      }.join('; ')
     end
 
     def format

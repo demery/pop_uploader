@@ -88,6 +88,7 @@
   - id_bookseller
   - id_binder
   - id_other
+  - id_unknown
 
 :owner_headers:
   - id_owner

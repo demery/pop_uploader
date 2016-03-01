@@ -54,12 +54,21 @@ module PopUploader
       config[:header_definitions]
     end
 
+    def header attr
+      headers[attr] or
+        raise "Unknown header attribute '#{attr}' (known: #{header_attrs})"
+    end
+
     def headers
-      header_definitions.inject({}) { |hash,kv|
+      @headers ||= header_definitions.inject({}) { |hash,kv|
         hdr = Header.new(kv.first, kv.last)
         hash[hdr.attr] = hdr
         hash
       }
+    end
+
+    def header_attrs
+      headers.keys
     end
 
     def expected_header_defs
@@ -85,10 +94,6 @@ module PopUploader
 
     def tag_headers
       symify_values :tag_headers
-    end
-
-    def associated_name_headers
-      symify_values :associated_name_headers
     end
 
     def identified_name_headers

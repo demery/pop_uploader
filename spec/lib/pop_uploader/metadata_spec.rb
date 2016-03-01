@@ -9,32 +9,35 @@ describe PopUploader::Metadata do
     copy_volume_number: '',
     copy_current_repository: 'University of Pennsylvania',
     copy_current_collection: 'Dutch Culture',
+    copy_current_owner: 'Jackie Gleason',
+    copy_current_location: 'Philadelphia, PA',
     copy_author: 'Sewel, William',
     copy_title: 'The history of the rise, increase, and progress of the Christian people called Quakers : intermixed with several remarkable occurrences / written originally in Low-Dutch by William Sewel, and by himself translated into English ; now revis\'d and publish\'d, with some amendments.',
     copy_place_of_publication: 'England, London',
     copy_date_of_publication: '1722',
     copy_printer_publisher: 'J. Sowle',
+    copy_other_id: '',
     evidence_location_in_book: '',
     evidence_format: 'Inscription',
     evidence_type: '',
     evidence_transcription: 'Ce Livre a appartenu a Monsieur le Baron Rocca, General de Bataille des armees et de sa majeste et pourveneur de la ville dIpre 1674Ipre 1674',
-    evidence_associated_name: 'Monsieur le Baron de Rocca',
-    evidence_date_associated: '1674',
-    evidence_place_associated: 'Ipre',
+    evidence_date: '1674',
+    evidence_place: 'Ipre',
     evidence_comments: 'The evidence comments',
     evidence_description: '',
     evidence_citation: 'Some evidence citation',
-    id_other: '',
-    id_date: '',
-    id_place: '',
-    id_owner: '',
-    id_donor: '',
-    id_recipient: '',
-    id_seller: '',
-    id_selling_agent: '',
-    id_buyer: '',
-    comments: ''
+    evidence_comments: 'Some evidence comments',
+    id_other:      '',
+    id_owner:      'Thomas, George Clifford',
+    id_bookseller: '',
+    id_librarian:  '',
+    id_binder:     '',
+    id_unknown:    '',
+    id_viaf_link:  'http://viaf.org/12345678890'
   }
+
+
+
 
   let(:md) {  PopUploader::Metadata.new evidence }
 
@@ -100,12 +103,12 @@ describe PopUploader::Metadata do
     end
 
     it "doesn't contain duplicate values" do
-      md = PopUploader::Metadata.new evidence(id_seller: 'Smith, J. X.', id_buyer: 'Smith, J. X.')
-      expect(md.tags.find_all { |s| s == '"Smith, J. X."' }.size).to be 1
+      md = PopUploader::Metadata.new evidence(id_bookseller: 'Smith, J. X.', id_owner: 'Smith, J. X.')
+      expect(md.tags.find_all { |s| s == '"Smith, J. X."' }.size).to eq 1
     end
 
     it "handles piped tags" do
-      md = PopUploader::Metadata.new evidence(id_seller: 'Smith, J. X.|Brown, M. Q.')
+      md = PopUploader::Metadata.new evidence(id_bookseller: 'Smith, J. X.|Brown, M. Q.')
       expect(md.tags).to include '"Smith, J. X."'
       expect(md.tags).to include '"Brown, M. Q."'
     end
