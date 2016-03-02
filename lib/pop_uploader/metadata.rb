@@ -29,7 +29,7 @@ module PopUploader
 
     # https://www.flickr.com/photos/58558794@N07/tags/901735
     def same_book_url
-      tag_url copy_call_number
+      tag_url full_call_number
     end
 
     def tag_url tag_string
