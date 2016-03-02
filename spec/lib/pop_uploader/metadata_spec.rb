@@ -36,9 +36,6 @@ describe PopUploader::Metadata do
     id_viaf_link:  'http://viaf.org/12345678890'
   }
 
-
-
-
   let(:md) {  PopUploader::Metadata.new evidence }
 
   before(:example) { PopUploader.configure! }
@@ -84,18 +81,17 @@ describe PopUploader::Metadata do
     end
 
     it "prints evidence_citation" do
-      STDERR.puts "md.evidence_citation #{md.evidence_citation}"
       expect(md.description).to match(/#{evidence[:evidence_citation]}/)
+    end
+
+    it 'prints id_viaf_link' do
+      expect(md.description).to match(/#{evidence[:id_viaf_link]}/)
     end
   end
 
   context "tags" do
-    it "has a call number tag" do
-      expect(md.tags).to include "\"#{md.copy_call_number}\""
-    end
-
-    it "has a call number tag" do
-      expect(md.tags).to include "\"#{md.copy_call_number}\""
+    it "has a full call number tag" do
+      expect(md.tags).to include "\"#{md.full_call_number}\""
     end
 
     it "has no empty values" do

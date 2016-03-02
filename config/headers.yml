@@ -61,8 +61,9 @@
   - evidence_format
   - copy_title
 
+# Don't make a tag of copy_call_number; we add full_call_number to the tags in
+# the PopUploader::Metadata class.
 :tag_headers:
-  - copy_call_number
   - copy_current_repository
   - copy_current_collection
   - copy_current_owner

@@ -37,9 +37,21 @@ module PopUploader
     end
 
     def identifications
-      PopUploader.header_config.identified_name_headers.flat_map do |header|
+      return @idents if @idents
+
+      headers = PopUploader.header_config.identified_name_headers
+      @idents ||= headers.flat_map do |header|
         id_list header
       end
+
+      if viaf_links.size == 0
+        # no viaf_links, nothing to do
+      elsif viaf_links.size == 1 && @idents.size == 1
+        @idents.first.viaf_link = viaf_links.first
+      else
+        $stderr.puts "WARNING: Unable match VIAF links to identifications"
+      end
+      @idents
     end
 
     def identified?
@@ -48,14 +60,23 @@ module PopUploader
       }
     end
 
+    def viaf_links
+      @viaf_links ||= vals(:id_viaf_link)
+    end
+
     def identification_headers
       PopUploader.header_config.identified_name_headers
     end
 
     class Ident
-      attr_accessor :name, :role
+      attr_accessor :name, :role, :viaf_link
       def initialize name, role; @name = name; @role = role; end
-      def to_s; "#{name}, #{role}"; end
+
+      def to_s
+        name_role  = "#{name}, #{role}"
+        name_role += ", <a href=\"#{viaf_link}\">#{viaf_link}</a>" if viaf_link
+        name_role
+      end
     end
 
     def id_list id_attr
@@ -81,6 +102,11 @@ module PopUploader
       end
     end
 
+    # We need to print the repository before the call number.
+    def full_call_number
+      "#{copy_current_repository} #{copy_call_number}"
+    end
+
     def photo_title
       if identified_names?
         "#{format}: #{identifications.map(&:name).join '; '} (#{copy_current_repository})"
@@ -102,9 +128,10 @@ module PopUploader
     end
 
     def tag_values
-      PopUploader.header_config.tag_headers.flat_map { |attr|
+      tags = PopUploader.header_config.tag_headers.flat_map { |attr|
         (send(attr) || '').split('|')
       }.uniq
+      tags.unshift full_call_number
     end
 
     def tag attr
