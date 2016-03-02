@@ -32,8 +32,7 @@ describe PopUploader::Metadata do
     id_bookseller: '',
     id_librarian:  '',
     id_binder:     '',
-    id_unknown:    '',
-    id_viaf_link:  'http://viaf.org/12345678890'
+    id_unknown:    ''
   }
 
   let(:md) {  PopUploader::Metadata.new evidence }
@@ -82,10 +81,6 @@ describe PopUploader::Metadata do
 
     it "prints evidence_citation" do
       expect(md.description).to match(/#{evidence[:evidence_citation]}/)
-    end
-
-    it 'prints id_viaf_link' do
-      expect(md.description).to match(/#{evidence[:id_viaf_link]}/)
     end
   end
 

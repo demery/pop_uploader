@@ -43,14 +43,6 @@ module PopUploader
       @idents ||= headers.flat_map do |header|
         id_list header
       end
-
-      if viaf_links.size == 0
-        # no viaf_links, nothing to do
-      elsif viaf_links.size == 1 && @idents.size == 1
-        @idents.first.viaf_link = viaf_links.first
-      else
-        $stderr.puts "WARNING: Unable match VIAF links to identifications"
-      end
       @idents
     end
 
@@ -60,22 +52,16 @@ module PopUploader
       }
     end
 
-    def viaf_links
-      @viaf_links ||= vals(:id_viaf_link)
-    end
-
     def identification_headers
       PopUploader.header_config.identified_name_headers
     end
 
     class Ident
-      attr_accessor :name, :role, :viaf_link
+      attr_accessor :name, :role
       def initialize name, role; @name = name; @role = role; end
 
       def to_s
-        name_role  = "#{name}, #{role}"
-        name_role += ", <a href=\"#{viaf_link}\">#{viaf_link}</a>" if viaf_link
-        name_role
+        "#{name}, #{role}"
       end
     end
 
