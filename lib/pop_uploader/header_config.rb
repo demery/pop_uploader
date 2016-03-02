@@ -6,14 +6,20 @@ module PopUploader
 
     REQUIRED_HEADER_LISTS = %w(
         header_definitions
-        required_header_definitions
         required_values
         tag_headers
         identified_name_headers
-        owner_headers
-        seller_headers
-        otherid_headers
     ).map(&:to_sym)
+
+    # Required headers definitions are those headers that must be defined for
+    # the pop uploader to work.
+    REQUIRED_HEADER_DEFINITIONS = %w(
+      file_name
+      copy_call_number
+      copy_current_repository
+      copy_place_of_publication
+      copy_date_of_publication
+    ).map &:to_sym
 
     def initialize header_yml
       @header_yml = header_yml
@@ -31,9 +37,9 @@ module PopUploader
         raise "Header config '#{@header_yml} is missing these lists: #{missing_sections}"
       end
 
-      # Now look at required_header_definitions and all other dependent
-      # lists (like tag_headers) to make sure that those keys show up
-      # the list of header_definitions
+      # Now look at REQUIRED_HEADER_DEFINITIONS and all other dependent lists (like
+      # tag_headers) to make sure that those keys show up the list of
+      # header_definitions
       missing_header_defs = {}
       expected_header_defs.each { |k,v|
         missing = v.find_all { |h|
@@ -72,14 +78,12 @@ module PopUploader
     end
 
     def expected_header_defs
+      (hdrs ||= {})[:required_header_definitions] = REQUIRED_HEADER_DEFINITIONS
       [
-       :required_header_definitions,
        :tag_headers,
        :identified_name_headers,
-       :owner_headers,
-       :seller_headers,
-       :otherid_headers
-      ].reduce({}) { |hash,key|
+       :required_values
+      ].reduce(hdrs) { |hash,key|
         hash[key] = symify_values key; hash
       }
     end
@@ -88,44 +92,12 @@ module PopUploader
       symify_values :required_values
     end
 
-    def required_header_definitions
-      symify_values :required_header_definitions
-    end
-
     def tag_headers
       symify_values :tag_headers
     end
 
     def identified_name_headers
       symify_values :identified_name_headers
-    end
-
-    def owner_headers
-      symify_values :owner_headers
-    end
-
-    def otherid_headers
-      symify_values :otherid_headers
-    end
-
-    def donor_headers
-      symify_values :donor_headers
-    end
-
-    def recipient_headers
-      symify_values :recipient_headers
-    end
-
-    def seller_headers
-      symify_values :seller_headers
-    end
-
-    def selling_agent_headers
-      symify_values :selling_agent_headers
-    end
-
-    def buyer_headers
-      symify_values :buyer_headers
     end
 
     def symify_values key

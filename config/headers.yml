@@ -4,6 +4,15 @@
 #
 # If a spreadsheet lacks one of these header columns; it will not be
 # processed.
+#
+# Note that the PopUploader relies on these tags being defined:
+#
+#   file_name
+#   copy_call_number
+#   copy_current_repository
+#   copy_place_of_publication
+#   copy_date_of_publication
+#
 ---
 :header_definitions:
   :file_name:                 "image file name"
@@ -36,32 +45,16 @@
   :id_unknown:                "id: role unknown"
   :id_viaf_link:              "id: viaf authority link"
 
-# Required headers definitions are those headers that must be defined
-# for the pop uploader to work.
-:required_header_definitions:
-  - file_name
-  - url_to_catalog
-  - copy_call_number
-  - copy_volume_number
-  - copy_current_repository
-  - copy_current_collection
-  - copy_author
-  - copy_title
-  - copy_place_of_publication
-  - copy_date_of_publication
-  - copy_printer_publisher
-  - evidence_location_in_book
-  - evidence_format
-  - evidence_type
-  - evidence_transcription
-
+# These values must be supplied by the user
 :required_values:
   - copy_current_repository
   - copy_call_number
   - evidence_format
   - copy_title
 
-# Don't make a tag of copy_call_number; we add full_call_number to the tags in
+# Headers that are printed as flick tags.
+#
+# Don't make a copy_call_number tag; we add full_call_number to the tags in
 # the PopUploader::Metadata class.
 :tag_headers:
   - copy_current_repository
@@ -82,7 +75,7 @@
   - id_other
   - id_unknown
 
-# Decide what to do about other
+# These are the headers that end up in the Identification list.
 :identified_name_headers:
   - id_owner
   - id_librarian
@@ -90,12 +83,3 @@
   - id_binder
   - id_other
   - id_unknown
-
-:owner_headers:
-  - id_owner
-
-:seller_headers:
-  - id_bookseller
-
-:otherid_headers:
-  - id_other
