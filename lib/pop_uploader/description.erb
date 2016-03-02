@@ -23,7 +23,7 @@
 
 <b>IDENTIFICATION</b>
 <% identifications.each do |id| -%>
-<b>Identified</b>: <%= id %>
+<b><%= id.role -%></b>: <%= id.name %>
 <% end -%>
 <%# TODO: Add identification comments %>
 <% end -%>
