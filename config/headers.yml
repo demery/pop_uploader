@@ -43,7 +43,6 @@
   :id_binder:                 "id: binder"
   :id_other:                  "id: other"
   :id_unknown:                "id: role unknown"
-  :id_viaf_link:              "id: viaf authority link"
 
 # These values must be supplied by the user
 :required_values:
